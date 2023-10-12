@@ -1,0 +1,391 @@
+:root{
+    --primary-1: #1E90FF;
+    --primary-2: #1e79d4;
+    --primary-3: #4AA6FF;
+
+    --secondry-yallow-1: #DC9F04;
+    --secondry-yallow-2: #FBC02D;
+
+    --thenary-orange-1: #FF9800;
+    --thenary-orange-2: #FB8C00;
+    --thenary-orange-3: #EF6C00;
+    --thenary-orange-4: #E65100;
+    --thenary-orange-5: #ff6700;
+
+    --forth-green-1: #B9F6CA;
+    --forth-green-2: #69F0AE;
+    --forth-green-3: #00E676;
+    --forth-green-4: #00C853;
+    --forth-green-5: #059862;
+
+    --fifth-gray-1: #DEE2E6;
+    --fifth-gray-2: #c0c0c0;
+    --fifth-gray-3: #666666;
+    --fifth-gray-4: #495057;
+    --fifth-gray-5: #212529;     
+    --new: cadetblue;               
+}
+
+/*! loogin */
+.container {
+    display: grid;
+    width: 100%;
+    height: 100vh;
+    grid-template-areas: "login_form_container login_logo_container";
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 1fr;
+}
+.login_form_container {
+    grid-area: login_form_container;
+    background-color: var(--fifth-gray-1);
+    place-items: center;
+    display: grid;
+}
+.login_form {
+    margin-top: 15%;
+    width: 80%;
+    max-width: 500px;
+    display: grid;
+    margin-inline: auto;
+}
+.login_form label{
+    display: grid;
+    margin-bottom: 2%;
+    font-weight: bold;
+    font-family: 'Courier New', Courier, monospace;
+}
+.login_form input{
+    padding: 5px;
+    outline: none;
+    border-radius: 0.5rem;
+    margin-bottom: 2%;
+    border: none;
+}
+.login_form .btnLogin{
+    margin-top: 7px;
+    padding: 5px;
+    border-radius: 2rem;
+    outline: none;
+    border: none;
+    background-color: var(--forth-green-3);
+    font-weight: bold;
+}
+.login_form .btnLogin:hover{
+    background-color: var(--forth-green-4);
+}
+.login_logo_container {
+    grid-area: login_logo_container;
+    background-color: var(--secondry-yallow-2);
+    place-items: center;
+    display: grid;
+}
+.logo_hero{
+    width: 100%;
+    height: auto;
+    margin-top: 15%;
+}
+.login_logo {
+    width: 90%;
+    height: auto;
+    display: grid;
+    margin-inline: auto;
+}
+.hero_txt{
+    text-align: center;
+    font-family: monospace;
+    font-size: 1rem;
+}
+/*! login */
+
+/*! signup */
+:root{
+    --primary-1: #1E90FF;
+    --primary-2: #1e79d4;
+    --primary-3: #4AA6FF;
+
+    --secondry-yallow-1: #DC9F04;
+    --secondry-yallow-2: #FBC02D;
+
+    --thenary-orange-1: #FF9800;
+    --thenary-orange-2: #FB8C00;
+    --thenary-orange-3: #EF6C00;
+    --thenary-orange-4: #E65100;
+    --thenary-orange-5: #ff6700;
+
+    --forth-green-1: #B9F6CA;
+    --forth-green-2: #69F0AE;
+    --forth-green-3: #00E676;
+    --forth-green-4: #00C853;
+    --forth-green-5: #059862;
+
+    --fifth-gray-1: #DEE2E6;
+    --fifth-gray-2: #c0c0c0;
+    --fifth-gray-3: #666666;
+    --fifth-gray-4: #495057;
+    --fifth-gray-5: #212529;     
+    --new: cadetblue;               
+}
+
+/* signup and login */
+.signup-container{
+    display: flex;
+    width: 100%;
+    height: 105vh;
+}
+.login-container{
+    display: flex;
+    width: 100%;
+    height: 105vh;
+}
+
+/* signup logo div */
+.signup-logo-container{
+    display: grid; /*display hide*/
+    width: 50%;
+    min-width: 250px;
+    background-color: var(--forth-green-3); /*add color*/
+    place-content: center;
+}
+/* login logo div */
+.login-logo-container{
+    display: grid; /*display hide*/
+    width: 50%;
+    min-width: 250px;
+    background-color: var(--forth-green-3); /*add color*/
+    place-content: center;
+}
+.signup-logo-div img{
+    width: 100%;
+}
+.signup-logo-hero .signup-logo-hero-txt{
+    width: 100%;
+    text-align: center;
+    margin-bottom: 50px;
+}
+.login-link-btn-div{
+    width: 100%;
+}
+.login-link-btn-div .login-link-text{
+    text-align: center;
+    margin-bottom: 10px;
+}
+.login-link-btn-div .login-link-btn{
+    text-align: center;
+}
+.login-link-btn-div .login-link-btn button{
+    padding: 10px 30px 10px 30px;
+    border: none;
+    border-radius: 0.4rem;
+    background-color: var(--secondry-yallow-2); /*add color*/
+}
+.login-link-btn-div .login-link-btn button:hover{
+    background-color: var(--secondry-yallow-1);
+}
+/* form div */
+/* signup form background */
+.signup-form-main-container{
+    display: flex; /*display hide*/
+    width: 50%;
+    min-width: 350px; /* change form width*/
+    place-items: center;
+    background-color: var(--fifth-gray-2); /*add color*/
+}
+/* login form background */
+.login-form-main-container{
+    display: flex; /*display hide*/
+    width: 50%;
+    min-width: 350px; /* change form width*/
+    place-items: center;
+    background-color: var(--fifth-gray-2); /*add color*/
+}
+.signup-form-container{
+    display: grid;
+    width: 100%;
+    max-width: 700px;
+}
+.signup-form-container .signup-head h3{
+    width: 100%;
+    text-align: center;
+    margin-bottom: 0;
+}
+.signup-form-div{
+    width: 90%;
+    margin-inline: auto;
+}
+.input-txt-field{
+    display: grid;
+    margin: 7px 0 7px 0;
+}
+.input-txt-field input,select{
+    padding: 5px;
+    border: none;
+    outline: none;
+    border-radius: 0.3rem;
+}
+.input-txt-field label{
+    font-weight: 500;
+}
+.select-gender-menu ul{
+    padding-left: 10px;
+    margin: 5px;            
+}
+.select-term-menu ul{
+    padding-left: 5px;
+    margin: 0;
+}
+.signup-btn-div{
+    display: grid;
+    width: 300px;
+    margin-inline: auto;
+    margin-top: 10px;
+}
+.signup-btn-div .btn-signup{ /*signup-btn*/
+    padding: 7px 0 7px 0;
+    border: none;
+    background-color: var(--forth-green-4);
+    border-radius: 0.5rem;
+    font-weight: 700;
+}
+.signup-btn-div .btn-signup:hover{
+    background-color: var(--forth-green-5);
+}
+.signup-btn-div .btn-login{ /*login-btn*/
+    padding: 7px 0 7px 0;
+    border: none;
+    background-color: var(--primary-1);
+    border-radius: 0.5rem;
+    font-weight: 700;
+    margin-top: 20px;
+}
+.signup-btn-div .btn-login:hover{
+    background-color: var(--primary-2);
+}
+.form-error-container{
+    display: grid;
+    text-align: center;
+    margin-top: 0;
+}
+.form-error-container ul{
+    margin-top: 0;
+    color: darkred;
+}
+
+/* email verification */
+
+.verification-container{
+    display: grid;
+    width: 80%;
+    margin-inline: auto;
+    background-color: #c0c0c0;
+    padding: 2%;
+    border-radius: 0.5rem;
+}
+.verification-logo{
+    width: 150px;
+    min-width: 100px;
+    max-width: 200px;
+    height: auto;
+    margin-inline: auto;
+    margin-top: 2%;
+}
+.verification-logo img{
+    width: 100%;
+}
+.verification-txt ul{
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 30px;
+    border-bottom: 1px solid #333;
+}
+.verification-txt p{
+    width: 100%;
+    text-align: center;
+}
+.verification-form-contanier{
+    width: 100%;
+}
+.verification-form-contanier form{
+    width: 90%;
+    min-width: 150px;
+    max-width: 400px;
+    margin-inline: auto;
+    display: grid;
+}
+.verification-form-contanier form input{
+    padding: 10px;
+    border-radius: 0.3rem;
+    outline: none;
+    border: none;
+    margin: 10px 0 10px 0;
+}
+.verification-form-contanier form button{
+    width: 80%;
+    margin-inline: auto;
+    padding: 7px;
+    border: none;
+    border-radius: 0.5rem;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    background-color: var(--forth-green-3);
+}
+.verification-form-contanier form button:hover{
+    background-color: var(--forth-green-4);
+}
+.new-code{
+    margin-top: 5%;
+    display: grid;
+    text-align: center;
+}
+.new-code label{
+    margin-bottom: 10px;
+}
+.new-code button{
+    width: 180px;
+    margin-inline: auto;
+    font-weight: bold;
+    color: #0e6dcc;
+    background-color: transparent;
+    outline: none;
+    border: none;
+    cursor: pointer;
+}
+.verify_error {
+    width: 80%;
+    margin-inline: auto;
+}
+/* ! error.php*/
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+}
+
+.error-container {
+    text-align: center;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    margin: 100px auto;
+    max-width: 400px;
+}
+
+.error-container h1 {
+    color: #e74c3c;
+}
+
+.error-container p {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.error-container a {
+    color: #3498db;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.error-container a:hover {
+    color: #2980b9;
+}
