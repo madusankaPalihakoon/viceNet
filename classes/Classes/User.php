@@ -8,6 +8,7 @@ require __DIR__.'/Login_Function.php';
 class User {
     private $signupFunction;
     private $loginFunction;
+    private $profileFunction;
 
     public function __construct()
     {
@@ -15,6 +16,7 @@ class User {
         $pdo = $database->getConnection(); // Get the PDO instance 
         $this->signupFunction = new SignupFunction($pdo);
         $this->loginFunction = new LoginFunction($pdo);
+        $this->profileFunction =  new ProfileFunction($pdo);
     }
 
     public function checkEmailInUse(string $email) : bool 
@@ -128,5 +130,9 @@ class User {
 
     public function getUserEmail( int $userId) : String {
         return $this->loginFunction->getUserEmailFromDatabase( $userId);
+    }
+
+    public function profileSetup(int $userId, string $home_town, int $contact_info, string $education, string $employment, string $relationship_status, $hobbies, string $profilePic, string $coverPic) : bool {
+        return $this->profileFunction->updateUserProfile($userId,$home_town, $contact_info, $education, $employment, $relationship_status, $hobbies, $profilePic, $coverPic);
     }
 }

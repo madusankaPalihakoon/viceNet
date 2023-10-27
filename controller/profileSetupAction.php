@@ -1,4 +1,10 @@
 <?php
+require_once __DIR__."/../../functions/profileSetupErrorChecker.php";
+require_once __DIR__."/../../functions/redirectFunction.php";
+require_once __DIR__.'/../config/SessionConfig.php';
+require_once __DIR__.'/../classes/Classes/User.php';
+use ViceNet\Classes\User;
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Handle form data here
     $home_town = $_POST['home_town'];
@@ -7,14 +13,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $employment = $_POST['employment'];
     $relationship_status = $_POST['relationship_status'];
     $hobbies = $_POST['hobbies'];
-
-    $profilePicDir = __DIR__."/../assets/uploads/profilePic"; // The folder where you want to store the images
-    $coverPicDir = __DIR__."/../assets/uploads/coverPic"; // The folder where you want to store the images
-
-    $profile_picture = $_FILES['profile_picture']['tmp_name'];
-    $cover_picture = $_FILES['cover_picture']['tmp_name'];
-    $profilePic = $profilePicDir . '/' . basename($_FILES['profile_picture']['name']);
-    $coverPic = $coverPicDir . '/' . basename($_FILES['cover_picture']['name']);
+    
+    // Check if any required fields are empty or if there are issues with file uploads
+    if (empty($home_town) || empty($contact_info) || empty($education) || empty($employment) || empty($relationship_status) || empty($hobbies) || empty($_FILES)) {
+        $error_message = "Please fill in all required fields and upload files before submitting.";
+        redirectTo('profile_setup', ['profile_setup_error' => $error_message]);
+    }
 
     // Validate file type and size
     $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
@@ -24,33 +28,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $coverPicExtension = strtolower(pathinfo($coverPic, PATHINFO_EXTENSION));
 
     if (!in_array($profilePicExtension, $allowedExtensions) || !in_array($coverPicExtension, $allowedExtensions)) {
-        echo 'Invalid file type. Please upload an image (jpg, jpeg, png, gif).';
+        $error_message = "Invalid file type. Please upload an image (jpg, jpeg, png, gif).";
+        redirectTo('profile_setup', ['profile_setup_error' => $error_message]);
     } elseif ($_FILES['profile_picture']['size'] > $maxFileSize || $_FILES['cover_picture']['size'] > $maxFileSize) {
-        echo 'File size exceeds the limit (5MB).';
+        $error_message = "File size exceeds the limit (5MB).";
+        redirectTo('profile_setup', ['profile_setup_error' => $error_message]);
     } elseif (move_uploaded_file($profile_picture, $profilePic) && move_uploaded_file($cover_picture, $coverPic)) {
         // Files uploaded successfully
-        // Connect to the database and insert form data
-        $db = new mysqli("localhost", "root", "", "vicenet");
+        $userId = $_SESSION['session_id'];
+        $user = new User();
 
-        if ($db->connect_error) {
-            die("Connection failed: " . $db->connect_error);
-        }
-
-        $sql = "INSERT INTO user_data (home_town, contact_info, education, employment, relationship_status, hobbies, profile_pic_path, cover_pic_path) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-
-        $stmt = $db->prepare($sql);
-        $stmt->bind_param("ssssssss", $home_town, $contact_info, $education, $employment, $relationship_status, $hobbies, $profilePic, $coverPic);
-
-        if ($stmt->execute()) {
+        if ($user->profileSetup($userId, $home_town, $contact_info, $education, $employment, $relationship_status, $hobbies, $profilePic, $coverPic)) {
             echo 'Data saved successfully';
+            redirectTo('home');
         } else {
+            redirectTo('error');
             echo 'Failed to save data to the database';
         }
-
-        $stmt->close();
-        $db->close();
     } else {
-        echo 'Failed to move uploaded files';
+        $error_message = 'Failed to upload files';
+        redirectTo('profile_setup', ['profile_setup_error' => $error_message]);
     }
 }
