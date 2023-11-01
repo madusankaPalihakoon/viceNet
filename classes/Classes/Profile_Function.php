@@ -41,7 +41,7 @@ class ProfileFunction {
         }
     }
 
-    public function updateUserProfile(int $userId, string $profilePic, string $coverPic, string $home, int $contact, string $education, string $employment, string $relationship_status, string $hobbies) : bool
+    public function updateUserProfile(int $userId, string $profilePic, string $coverPic, string $home, string $contact, string $education, string $employment, string $relationship_status, string $hobbies) : bool
     {
         try {
             $profile_setup_status = 1;

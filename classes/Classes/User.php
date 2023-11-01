@@ -133,7 +133,7 @@ class User {
         return $this->loginFunction->getUserEmailFromDatabase( $userId);
     }
 
-    public function profileSetup(int $userId, string $home_town, int $contact_info, string $education, string $employment, string $relationship_status, $hobbies, string $profilePic, string $coverPic) : bool {
-        return $this->profileFunction->updateUserProfile($userId,$home_town, $contact_info, $education, $employment, $relationship_status, $hobbies, $profilePic, $coverPic);
+    public function profileSetup(int $userId, string $profilePic, string $coverPic, string $home_town, string $contact_info, string $education, string $employment, string $relationship_status, string $hobbies) : bool {
+        return $this->profileFunction->updateUserProfile( $userId, $profilePic, $coverPic, $home_town, $contact_info, $education, $employment, $relationship_status, $hobbies );
     }
 }

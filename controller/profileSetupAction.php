@@ -1,7 +1,12 @@
 <?php
+
+use ViceNet\Classes\User;
+
 require_once __DIR__ . "/../functions/profileSetupErrorChecker.php";
 require_once __DIR__ . "/../functions/redirectFunction.php";
 require_once __DIR__ . '/../config/SessionConfig.php';
+require_once __DIR__ . '/../classes/Classes/User.php';
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   // Get Selected Image Details
   $profilePicName = $_FILES["profile_picture"]["name"];
@@ -24,10 +29,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     echo 'Profile Picture Size Is Too Large';
   } else if ($coverPicSize > 1000000) {
     echo 'Cover Picture Size Is Too Large';
-  } else {
-    // Move uploaded files to the respective directories
-    move_uploaded_file($profilePicTmpName, $profilePicUploadDir . '/' . $profilePicName);
-    move_uploaded_file($coverPicTmpName, $coverPicUploadDir . '/' . $coverPicName);
-    // Add appropriate success handling here if needed
+  } else if( move_uploaded_file($profilePicTmpName, $profilePicUploadDir . '/' . $profilePicName) && move_uploaded_file($coverPicTmpName, $coverPicUploadDir . '/' . $coverPicName) ) {
+    // When Move uploaded file Success
+    $user = new User();
+
+    $userId = $_SESSION['session_id'];
+    $home_town = $_POST['home_town'] ;
+    $contact_info = $_POST['contact_info'] ;
+    $education = $_POST['education'] ;
+    $employment = $_POST['employment'] ;
+    $relationship_status = $_POST['relationship_status'] ;
+    $hobbies = $_POST['hobbies'] ;
+    $profilePic = $profilePicName ;
+    $coverPic = $coverPicName ;
+    $user->profileSetup( $userId, $profilePic, $coverPic, $home_town, $contact_info, $education, $employment, $relationship_status, $hobbies );
   }
 }
