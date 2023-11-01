@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__."/../config/SessionConfig.php";
+require_once __DIR__."/../functions/profileSetupErrorChecker.php";
 $sessionId = $_SESSION['session_id'];
 ?>
 
@@ -144,6 +145,9 @@ $sessionId = $_SESSION['session_id'];
                 <input class="set_form_act_btn" type="submit" value="Skip for Now">
             </div>
         </form>
+        <div class="display_error">
+            <?php displayProfileSetupErrorMessage() ?>
+        </div>
     </div> 
 </body>
 </html>

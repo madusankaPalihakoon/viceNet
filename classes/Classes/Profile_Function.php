@@ -41,12 +41,46 @@ class ProfileFunction {
         }
     }
 
-    public function updateUserProfile(int $userId, string $profilePic, string $coverPic, string $home, string $contact, string $education, string $employment, string $relationship_status, string $hobbies) : bool
+    public function updateUserProfile(int $userId, string $profilePic = null, string $coverPic = null, string $home = null, string $contact = null, string $education = null, string $employment = null, string $relationship_status = null, string $hobbies = null) : bool
     {
         try {
             $profile_setup_status = 1;
+            // Construct the SQL statement
+            $sql = "UPDATE user_profile SET";
+            if (!is_null($userId)) {
+                $sql .= "user_id = :user_id, ";
+            }
+            if (!is_null($profilePic)) {
+                $sql .= "profile_pic = :profile_pic, ";
+            }
+            if (!is_null($coverPic)) {
+                $sql .= "cover_pic = :cover_pic, ";
+            }
+            if (!is_null($home)) {
+                $sql .= "home = :home, ";
+            }
+            if (!is_null($contact)) {
+                $sql .= "contact = :contact, ";
+            }
+            if (!is_null($education)) {
+                $sql .= "education = :education, ";
+            }
+            if (!is_null($employment)) {
+                $sql .= "home = :home, ";
+            }
+            if (!is_null($relationship_status)) {
+                $sql .= "relationship_status = :relationship_status, ";
+            }
+            if (!is_null($hobbies)) {
+                $sql .= "hobbies = :hobbies, ";
+            }
+            if (!is_null($profile_setup_status)) {
+                $sql .= "profile_setup_status = :profile_setup_status, ";
+            }
+            // Remove the trailing comma and add the WHERE clause to specify the record to update
+            $sql = rtrim($sql, ', ') . " WHERE user_id = :user_id;";
             
-            $stmt = $this->pdo->prepare("UPDATE user_profile SET profile_pic = :profile_pic, cover_pic = :cover_pic, home = :home, contact = :contact, education = :education, employment = :employment, relationship_status = :relationship_status,hobbies = :hobbies, profile_setup_status = :profile_setup_status WHERE user_id = :user_id;");
+            $stmt = $this->pdo->prepare($sql);
             $stmt->bindParam(':profile_pic', $profilePic);
             $stmt->bindParam(':cover_pic', $coverPic);
             $stmt->bindParam(':home', $home);
