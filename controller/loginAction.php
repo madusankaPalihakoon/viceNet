@@ -55,8 +55,10 @@ function handleLogin($usernameOrEmail, $password): void {
             }
         }
     } catch (\Throwable $th) {
-        // Handle exceptions appropriately (e.g., log the error)
-        redirectTo("login", ["login_error" => "An error occurred during login."]);
+        // Handle exceptions
+        errorLog($th); // log exceptions
+        redirectTo("login", ["login_error" => $th]);
+        // redirectTo("login", ["login_error" => "An error occurred during login."]);
     }
 }
 
@@ -78,7 +80,7 @@ function handleloginSuccess( int $userId) {
     session_destroy();
     // Start session
     session_start();
-    redirectTo("home",['session_id' => $userId]);
+    redirectTo("profile_setup",['session_id' => $userId]);
 }
 
 function handleBlockedEmail() {

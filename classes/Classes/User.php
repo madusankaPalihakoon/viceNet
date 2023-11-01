@@ -4,6 +4,7 @@ require_once __DIR__."/../Database/databaseCon.php";
 use ViceNet\Database\PDO_Config;
 require __DIR__.'/Signup_Function.php';
 require __DIR__.'/Login_Function.php';
+require __DIR__.'/Profile_Function.php';
 
 class User {
     private $signupFunction;

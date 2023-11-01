@@ -1,7 +1,6 @@
 <?php
 require_once __DIR__."/../config/SessionConfig.php";
 require_once __DIR__."/../functions/loginErrorChecker.php";
-
 ?>
 <!DOCTYPE html>
 <html lang="en">

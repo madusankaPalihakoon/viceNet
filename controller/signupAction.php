@@ -55,7 +55,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             }
         } catch (Exception $e) {
-            // Handle other exceptions
+            // Handle exceptions
+            errorLog($e); // log exceptions
             $errors["signup_error"] = "An error occurred during sign up. Please try again later.";
             redirectTo("signup", ['signup_error' => $errors]);
 
