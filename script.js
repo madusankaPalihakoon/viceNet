@@ -1,4 +1,4 @@
-{/* <script>
+<script>
 document.addEventListener("DOMContentLoaded", function () {
     var form = document.querySelector(".login_form");
 
@@ -28,4 +28,4 @@ document.addEventListener("DOMContentLoaded", function () {
         xhr.send(formData);
     });
 });
-</script> */}
+</script>

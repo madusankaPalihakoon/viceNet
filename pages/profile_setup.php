@@ -116,7 +116,7 @@ $sessionId = $_SESSION['session_id'];
         <div class="headline_prof_set">
             <h1>Setup your profile</h1>
         </div>
-        <form action="../controller/profileSetupAction" method="POST" enctype="multipart/form-data">
+        <form action="../controller/profileAction" method="POST" enctype="multipart/form-data">
             <div class="cont_prof_set">
                 <h3 class="prof_set_head">Add Profile Picture</h3>
                 <div class="profile_pic_upl_container">

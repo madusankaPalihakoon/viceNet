@@ -14,7 +14,7 @@ define('MAX_IMAGE_SIZE', 1000000);
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!empty($_FILES) && !empty($_POST)) {
         if (isset($_FILES["profile_picture"]) && isset($_FILES["cover_picture"])) {
-            handleUploadData();
+            handlePostAndFile();
             exit;
         } elseif (isset($_FILES["profile_picture"])) {
             handleProfilePic();
@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     } elseif (!empty($_FILES)) {
         if (isset($_FILES["profile_picture"]) && isset($_FILES["cover_picture"])) {
-            handleUploadData();
+            handleUploadProfileAndCover();
             exit;
         } elseif (isset($_FILES["profile_picture"])) {
             handleProfilePic();
@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-function handleUploadData(): void {
+function handlePostAndFile(): void {
     $profilePicName = $_FILES["profile_picture"]["name"];
     $profilePicSize = $_FILES["profile_picture"]["size"];
     $profilePicTmpName = $_FILES["profile_picture"]["tmp_name"];
@@ -91,7 +91,6 @@ function handleProfilePic(): void {
     if (!moveUploadFile($profilePicTmpName, $profilePicUploadDir, $profilePicName)) {
         redirectTo('profile_setup', ['profile_setup_error' => 'Error Upload Images']);
     }
-    uploadBioInformation($profilePicName, null);
 }
 
 function handleCoverPic(): void {
@@ -115,6 +114,36 @@ function handleCoverPic(): void {
     uploadBioInformation(null, $coverPicName);
 }
 
+function handleUploadProfileAndCover() : void {
+    $profilePicName = $_FILES["profile_picture"]["name"];
+    $profilePicSize = $_FILES["profile_picture"]["size"];
+    $profilePicTmpName = $_FILES["profile_picture"]["tmp_name"];
+    $profileImageExtension = strtolower(pathinfo($profilePicName, PATHINFO_EXTENSION));
+    $profilePicUploadDir = __DIR__ . '/../assets/uploads/profilePic';
+
+    $coverPicName = $_FILES["cover_picture"]["name"];
+    $coverPicSize = $_FILES["cover_picture"]["size"];
+    $coverPicTmpName = $_FILES["cover_picture"]["tmp_name"];
+    $coverImageExtension = strtolower(pathinfo($coverPicName, PATHINFO_EXTENSION));
+    $coverPicUploadDir = __DIR__ . '/../assets/uploads/coverPic';
+
+    if (!IsImageExtensionValid($profileImageExtension) || !IsImageExtensionValid($coverImageExtension)) {
+        redirectTo('profile_setup', ['profile_setup_error' => 'Invalid Image Extension']);
+    }
+
+    if (!IsImageSizeTooLarge($profilePicSize) || !IsImageSizeTooLarge($coverPicSize)) {
+        redirectTo('profile_setup', ['profile_setup_error' => 'Image Size Is Too Large']);
+    }
+
+    if (!moveUploadFile($profilePicTmpName, $profilePicUploadDir, $profilePicName)) {
+        redirectTo('profile_setup', ['profile_setup_error' => 'Error Upload Images']);
+    }
+    if (!moveUploadFile($coverPicTmpName, $coverPicUploadDir, $coverPicName)) {
+        redirectTo('profile_setup', ['profile_setup_error' => 'Error Upload Images']);
+    }
+    uploadBioInformation(null, $profilePicName, $coverPicName, null, null, null, null, null, null);
+}
+
 function IsImageExtensionValid($Image): bool {
     return in_array($Image, VALID_IMAGE_EXTENSIONS);
 }
@@ -127,7 +156,7 @@ function moveUploadFile($tempName, $directoryName, $imgName): bool {
     return move_uploaded_file($tempName, $directoryName . '/' . $imgName);
 }
 
-function uploadBioInformation($profilePic = null, $coverPic = null): void {
+function uploadBioInformation($userId = null, $profilePic = null, $coverPic = null, $homeTown = null, $contactInfo = null, $education = null, $employment = null, $relationshipStatus = null, $hobbies = null): void {
     $userId = isset($_SESSION['session_id']) ? $_SESSION['session_id'] : null;
     $homeTown = isset($_POST['home_town']) ? $_POST['home_town'] : null;
     $contactInfo = isset($_POST['contact_info']) ? $_POST['contact_info'] : null;

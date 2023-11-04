@@ -21,7 +21,7 @@ class ProfileFunction {
         $error_message = "Error saving user data: " . $e->getMessage();
     
         // Define the error log file path (use an absolute path)
-        $error_log = __DIR__ . '/var/log/signup.txt';
+        $error_log = __DIR__ . '/var/log/signup.log';
     
         // Log the error with a timestamp
         $timestamp = date('Y-m-d H:i:s');
@@ -40,67 +40,51 @@ class ProfileFunction {
             header("Location: $error_page");
         }
     }
-
-    public function updateUserProfile(int $userId, string $profilePic = null, string $coverPic = null, string $home = null, string $contact = null, string $education = null, string $employment = null, string $relationship_status = null, string $hobbies = null) : bool
-    {
+    public function updateUserProfile($userId, $profilePic, $coverPic, $home, $contact, $education, $employment, $relationship_status, $hobbies, $profile_setup_status): bool {
+        $sqlAndParams = $this->generateUpdateUserProfileSql($userId, $profilePic, $coverPic, $home, $contact, $education, $employment, $relationship_status, $hobbies, $profile_setup_status);
+    
         try {
-            $profile_setup_status = 1;
-            // Construct the SQL statement
-            $sql = "UPDATE user_profile SET";
-            if (!is_null($userId)) {
-                $sql .= "user_id = :user_id, ";
-            }
-            if (!is_null($profilePic)) {
-                $sql .= "profile_pic = :profile_pic, ";
-            }
-            if (!is_null($coverPic)) {
-                $sql .= "cover_pic = :cover_pic, ";
-            }
-            if (!is_null($home)) {
-                $sql .= "home = :home, ";
-            }
-            if (!is_null($contact)) {
-                $sql .= "contact = :contact, ";
-            }
-            if (!is_null($education)) {
-                $sql .= "education = :education, ";
-            }
-            if (!is_null($employment)) {
-                $sql .= "home = :home, ";
-            }
-            if (!is_null($relationship_status)) {
-                $sql .= "relationship_status = :relationship_status, ";
-            }
-            if (!is_null($hobbies)) {
-                $sql .= "hobbies = :hobbies, ";
-            }
-            if (!is_null($profile_setup_status)) {
-                $sql .= "profile_setup_status = :profile_setup_status, ";
-            }
-            // Remove the trailing comma and add the WHERE clause to specify the record to update
-            $sql = rtrim($sql, ', ') . " WHERE user_id = :user_id;";
-            
-            $stmt = $this->pdo->prepare($sql);
-            $stmt->bindParam(':profile_pic', $profilePic);
-            $stmt->bindParam(':cover_pic', $coverPic);
-            $stmt->bindParam(':home', $home);
-            $stmt->bindParam(':contact', $contact);
-            $stmt->bindParam(':education', $education);
-            $stmt->bindParam(':employment', $employment);
-            $stmt->bindParam(':relationship_status', $relationship_status);
-            $stmt->bindParam(':hobbies', $hobbies);
-            $stmt->bindParam(':profile_setup_status', $profile_setup_status);
-            $stmt->bindParam(':user_id', $userId);
-            
-            if ($stmt->execute()) {
-                return true;
-            } else {
-                return false;
-            }
+            $stmt = $this->pdo->prepare($sqlAndParams['sql']);
+            $stmt->execute($sqlAndParams['params']);
+    
+            return true;
         } catch (\PDOException $e) {
             $this->logFunctionError($e);
             return false;
         }
+    }
+    
+    private function generateUpdateUserProfileSql($userId, $profilePic, $coverPic, $home, $contact, $education, $employment, $relationship_status, $hobbies, $profile_setup_status): array {
+        $sql = "UPDATE user_profile SET ";
+        $params = [];
+    
+        $updateColumns = [
+            'profile_pic' => $profilePic,
+            'cover_pic' => $coverPic,
+            'home' => $home,
+            'contact' => $contact,
+            'education' => $education,
+            'employment' => $employment,
+            'relationship_status' => $relationship_status,
+            'hobbies' => $hobbies,
+            'profile_setup_status' => $profile_setup_status,
+        ];
+    
+        foreach ($updateColumns as $column => $value) {
+            if (!is_null($value)) {
+                $sql .= "$column = :$column, ";
+                $params[":$column"] = $value;
+            }
+        }
+    
+        // Remove the trailing comma and add the WHERE clause to specify the record to update
+        $sql = rtrim($sql, ', ') . " WHERE user_id = :user_id";
+        $params[':user_id'] = $userId;
+    
+        return [
+            'sql' => $sql,
+            'params' => $params,
+        ];
     }
     
 }
