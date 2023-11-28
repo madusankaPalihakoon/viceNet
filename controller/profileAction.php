@@ -17,14 +17,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
         $profilePicture = uploadProfilePicture();
         $coverPicture = uploadCoverPicture();
         handleFormData( $profilePicture, $coverPicture);
+        redirectTo('home');
+        exit;
     }elseif( checkPostArrayAndKeyIsSet() ){
         handleFormData();
+        redirectTo('home');
+        exit;
     }elseif ( checkFilesArrayAndKeyIsSet() ) {
         $profilePicture = uploadProfilePicture();
         $coverPicture = uploadCoverPicture();
         handleFormData( $profilePicture, $coverPicture);
+        redirectTo('home');
+        exit;
     }else{
         redirectTo('profile_setup');
+        exit;
     }
 }
 else
