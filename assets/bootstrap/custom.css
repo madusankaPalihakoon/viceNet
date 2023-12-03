@@ -1,0 +1,71 @@
+/* Custom CSS for dark theme nav-link text color */
+.navbar[data-bs-theme="dark"] .nav-link {
+  color: #ffffff; /* Set the desired text color */
+}
+
+/* Custom CSS for dark theme icon color */
+.navbar[data-bs-theme="dark"] .bi {
+  color: #ffffff;
+}
+
+.container[data-bs-theme="dark"] .story-btn {
+  outline: none;
+  border: none;
+  background-color: #333;
+}
+
+.story-item{
+  width: 8rem; 
+  height: 16rem;
+}
+
+.story-container {
+  gap: 2px;
+}
+
+.create-post-container {
+  margin-top: 10px;
+  width: 100%;
+}
+
+.small-profile{
+  text-align: center;
+  margin-left: 15px;
+}
+
+.small-profile img{
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.create-post-btn-container {
+  padding: 5px;
+}
+
+.post-container {
+  margin-top: 10px;
+  width: 100%;
+  height: 620px;
+  border: 1px solid red;
+}
+.post-container .figure img{
+  width: 100%;
+  height: 500px;
+  object-fit: scale-down;
+}
+.post-action-btn {
+  background-color: transparent;
+  outline: none;
+  border: none;
+}
+
+.post-action-btn .action-img {
+  width: 30px;
+  height: 30px;
+}
+
+.comment-container {
+  margin-bottom: 5px;
+}

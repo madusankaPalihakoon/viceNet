@@ -2,174 +2,140 @@
 require_once __DIR__."/../config/SessionConfig.php";
 $sessionId = $_SESSION['session_id'];
 ?>
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-    #menu {
-        background: #00394D;
-        color: #FFF;
-        height: 50px;
-        padding-left: 18px;
-        border-radius: 7px;
-    }
-    #nav_logo_img {
-        margin-top: 2px;
-        width: 100px;
-    }
-    #menu ul, #menu li {
-        margin: 5px auto;
-        padding: 0;
-        list-style: none
-    }
-    #menu ul {
-        width: 100%;
-    }
-    #menu li {
-        float: left;
-        display: inline;
-        position: relative;
-    }
-    #menu a {
-        display: block;
-        line-height: 37px;
-        padding: 0 14px;
-        text-decoration: none;
-        color: #FFFFFF;
-        font-size: 15px;
-    }
-    #menu a.dropdown-arrow:after {
-        content: "\23F7";
-        margin-left: 5px;
-    }
-    #menu li a:hover {
-        color: #F0F0F0;
-        background: #124673;
-    }
-    #menu input {
-        display: none;
-        margin: 0;
-        padding: 0;
-        height: 37px;
-        width: 100%;
-        opacity: 0;
-        cursor: pointer
-    }
-    #menu label {
-        display: none;
-        line-height: 37px;
-        text-align: center;
-        position: absolute;
-        left: 35px
-    }
-    #menu label:before {
-        font-size: 1.6em;
-        content: "\2261"; 
-        margin-left: 20px;
-    }
-    #menu ul.sub-menus{
-        height: auto;
-        overflow: hidden;
-        width: 170px;
-        background: #063D52;
-        position: absolute;
-        z-index: 99;
-        display: none;
-    }
-    #menu ul.sub-menus li {
-        display: block;
-        width: 100%;
-    }
-    #menu ul.sub-menus a {
-        color: #FFFFFF;
-        font-size: 16px;
-    }
-    #menu li:hover ul.sub-menus {
-        display: block
-    }
-    #menu ul.sub-menus a:hover{
-        background: #F2F2F2;
-        color: #444444;
-    }
-    @media screen and (max-width: 800px){
-        #menu {position:relative}
-        #menu ul {background:#111;position:absolute;top:100%;right:0;left:0;z-index:3;height:auto;display:none}
-        #menu ul.sub-menus {width:100%;position:static;}
-        #menu ul.sub-menus a {padding-left:30px;}
-        #menu #nav_link {display:block;float:none;width:auto;}
-        #nav_logo {position: absolute; left: 40%;}
-        #menu input, #menu label {position:absolute;top:0;left:0;display:block;width: 30px;}
-        #menu input {z-index:4}
-        #menu input:checked + label {color:white}
-        #menu input:checked + label:before {content:"\00d7"}
-        #menu input:checked ~ ul {display:block}
-    }
-
-    #home {
-        display: grid;
-        border: #00394D 1px solid;
-        width: 100%;
-    }
-    #main_content {
-        display: inline-flex;
-        width: 100%;
-    }
-    #left_content {
-        width: 20%;
-        display: grid;
-        justify-content: left;
-    }
-    #center_content {
-        width: 60%;
-        display: grid;
-        justify-content: center;
-        border: #00394D 1px solid;
-    }
-    #right_content {
-        width: 20%;
-        display: grid;
-        justify-content: right;
-    }
-    </style>
-    <script>
-        function updatemenu() {
-            if (document.getElementById('responsive-menu').checked == true) {
-                document.getElementById('menu').style.borderBottomRightRadius = '0';
-                document.getElementById('menu').style.borderBottomLeftRadius = '0';
-            }else{
-                document.getElementById('menu').style.borderRadius = '7px';
-            }
-        }
-    </script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="stylesheet" href="../assets/bootstrap/main.css">
+    <link rel="stylesheet" href="../assets/bootstrap/style.css">
+    <link rel="stylesheet" href="../assets/bootstrap/custom.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 </head>
 <body>
-    <nav id='menu'>
-        <input type='checkbox' id='responsive-menu' onclick='updatemenu()'><label></label>
-        <li id="nav_logo"><a href='home'><img id="nav_logo_img" src="../assets/images/logo/logo-large.png" alt="" srcset=""></a></li>
-        <ul>
-            <li id="nav_link"><a href='home'>home</a></li>
-            <li id="nav_link"><a href='Profile'>Profile</a></li>
-            <li id="nav_link"><a href='Friends'>Friends</a></li>
-            <li id="nav_link"><a href='Setting'>Setting</a></li>
-            <li id="nav_link"><a href='menu'>Menu</a></li>
-        </ul>
-    </nav>
-    <div id="home">
-        <div id="main_content">
-            <div id="left_content">
-                <ul>store</ul>
+    <nav class="navbar bg-body-tertiary" data-bs-theme="dark">
+        <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+            <img src="../assets/images/logo/logo-large.png" alt="Logo" width="50" height="24" class="d-inline-block align-text-center">
+            ViceNet
+        </a>
+        <!-- Responsive navigation links -->
+        <a class="nav-link d-none d-md-grid" aria-current="page" href="#">Home</a>
+        <a class="d-grid d-md-none" href=""><i class="bi bi-house"></i></a>
+        <a class="nav-link d-none d-md-grid" href="#">Friends</a>
+        <a class="d-grid d-md-none" href=""><i class="bi bi-people"></i></a>
+        <a class="nav-link d-none d-md-grid" href="#">Account</a>
+        <a class="d-grid d-md-none" href=""><i class="bi bi-person"></i></a>
+        <a class="nav-link d-none d-md-grid" href="#">Setting</a>
+        <a class="d-grid d-md-none" href=""><i class="bi bi-gear"></i></a>
+        <!-- Responsive search form -->
+        <form class="d-none d-md-flex" role="search">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-primary" type="submit">Search</button>
+        </form>
+        </div>
+    </nav>  
+
+    <div class="container text-center" data-bs-theme="dark">
+    <div class="row">
+        <div class="col d-none d-md-block">
+        <!-- This column will be hidden on small screens -->
+        1 of 3
+        </div>
+
+        <div class="col-12 col-md-6 border border-secondary-subtle" id="main_container">
+            <!-- story -->
+            <div class="overflow-x-auto d-flex flex-row mb-3 story-container">
+                <div class="card story-item">
+                <img src="https://images.freeimages.com/images/large-previews/c0d/gerbera-series-1-1486599.jpg" class="card-img-top" alt="...">
+                <button class="story-btn"><i class="bi bi-cloud-plus"> Add Story</i></button>
+                <div class="card-body">
+                    <h6 class="card-title">Card title</h6>
+                </div>
+                </div>
+
+                <div class="card story-item">
+                <img src="https://images.freeimages.com/images/large-previews/c0d/gerbera-series-1-1486599.jpg" class="card-img-top" alt="...">
+                <button class="story-btn"><i class="bi bi-cloud-plus"> Add Story</i></button>
+                <div class="card-body">
+                    <h6 class="card-title">Card title</h6>
+                </div>
+                </div>
             </div>
-            <div id="center_content">
-                <ul>center</ul>
+            <!-- story -->
+
+            <!--! create post -->
+            <div class="card create-post-container">
+                <div class="row">
+                <div class="col small-profile">
+                    <img src="https://images.freeimages.com/images/large-previews/6e3/flower-1370341.jpg" alt="">
+                    What's on your mind
+                </div>
+                </div>
+                <!-- ! create post model button -->
+                <div class="col create-post-btn-container">
+                <button type="button" class="btn btn-primary w-75" data-bs-toggle="modal" data-bs-target="#postModel" data-bs-whatever="@mdo"><i class="bi bi-card-image"></i> Post Image</button>
+                </div>
+                <!-- ! create post model button -->
+                
+                <!--! Modal for create post -->
+                <div class="modal fade" id="postModel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title" id="exampleModalLabel">Create Post</h3>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="Close_Btn"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="" method="post" enctype="multipart/form-data" id="createPost">
+                            <div class="mb-3">
+                                <label for="message-text" class="col-form-label">Write a Caption :</label>
+                                <input type="text" class="form-control" id="post_caption" name="caption"></input>
+                            </div>
+                            <div class="mb-3">
+                                <label for="message-text" class="col-form-label">Select a Picture :</label>
+                                <input type="file" class="form-control" id="post_photo" name="photo"></input>
+                            </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <button type="submit" class="btn btn-primary" id="create_post_btn">Submit Post</button>
+                            </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!--! Modal for create post -->
             </div>
-            <div id="right_content">
-                <ul>friends</ul>
+            <!--! create post -->
+            
+            <!-- Loading div -->
+            <div class="text-center text-primary" style="margin-top: 10px;" id="loading_screen">
+                <div class="spinner-border" style="width: 4rem; height: 4rem;" role="status"></div>
             </div>
+            <!-- Loading div -->
+
+            <!--! post container -->
+            
+            <!--! post container -->
+
+        </div>
+
+        <div class="col d-none d-md-block">
+        <!-- This column will be hidden on small screens -->
+        3 of 3
         </div>
     </div>
+    </div>
+
+    <!--! like button action -->
+    <!-- <script src="../ajax/likeFunction.js"></script> -->
+    <script src="../ajax/createPostAsync.js"></script>
+    <script src="../ajax/showPostAsync.js"></script>
+    <!-- Include Bootstrap JS -->
+    <script src="../assets/node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
+    <!-- Add your custom scripts here -->
 </body>
 </html>
