@@ -251,4 +251,19 @@ class PostFunction {
             $this->logFunctionError($e);
         }
     }
+
+    public function getCommentFromDatabase( $postId) : ?array {
+        try {
+            $stmt = $this->pdo->prepare("SELECT u.name AS userName, pc.comment_text , pc.timestap, pc.post_id FROM post_comment pc JOIN users u ON pc.comment_user = u.user_id WHERE post_id = :post_id;");
+            $stmt->bindParam(':post_id' , $postId);
+            $stmt->execute();
+            // Fetch all rows as associative arrays
+            $rows = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
+            // Return the fetched rows or null if there are no comments
+            return (count($rows) > 0) ? $rows : null;
+        } catch (\PDOException $e) {
+            $this->logFunctionError($e);
+        }
+    }
 }

@@ -29,4 +29,8 @@ class Post {
     public function setComment($userId, $postId, $commentText) : array {
         return $this->postFunction->addComment($userId, $postId, $commentText);
     }
+
+    public function getComment( $postId) : ?array {
+        return $this->postFunction->getCommentFromDatabase( $postId);
+    }
 }

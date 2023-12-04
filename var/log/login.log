@@ -1,0 +1,15 @@
+[2023-12-04 13:37:39] SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.timestap FROM post_comment pc JOIN users u ON pc.comment_user = u.user_id WHERE' at line 1 in C:\wamp64\www\viceNet\classes\Classes\Post_function.php on line 259
+[2023-12-04 14:16:43] SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens in C:\wamp64\www\viceNet\classes\Classes\Post_function.php on line 259
+[2023-12-04 14:16:43] SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens in C:\wamp64\www\viceNet\classes\Classes\Post_function.php on line 259
+[2023-12-04 14:17:20] SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens in C:\wamp64\www\viceNet\classes\Classes\Post_function.php on line 259
+[2023-12-04 14:17:20] SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens in C:\wamp64\www\viceNet\classes\Classes\Post_function.php on line 259
+[2023-12-04 14:17:56] SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens in C:\wamp64\www\viceNet\classes\Classes\Post_function.php on line 259
+[2023-12-04 14:17:56] SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens in C:\wamp64\www\viceNet\classes\Classes\Post_function.php on line 259
+[2023-12-04 14:18:29] SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens in C:\wamp64\www\viceNet\classes\Classes\Post_function.php on line 259
+[2023-12-04 14:18:29] SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens in C:\wamp64\www\viceNet\classes\Classes\Post_function.php on line 259
+[2023-12-04 14:18:52] SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens in C:\wamp64\www\viceNet\classes\Classes\Post_function.php on line 259
+[2023-12-04 14:18:54] SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens in C:\wamp64\www\viceNet\classes\Classes\Post_function.php on line 259
+[2023-12-04 14:20:14] SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens in C:\wamp64\www\viceNet\classes\Classes\Post_function.php on line 259
+[2023-12-04 14:21:37] SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens in C:\wamp64\www\viceNet\classes\Classes\Post_function.php on line 259
+[2023-12-04 14:23:50] SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens in C:\wamp64\www\viceNet\classes\Classes\Post_function.php on line 259
+[2023-12-04 14:24:16] SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens in C:\wamp64\www\viceNet\classes\Classes\Post_function.php on line 259

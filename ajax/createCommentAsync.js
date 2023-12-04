@@ -101,13 +101,19 @@ function createPostContainer(postData) {
             commentButton.setAttribute("data-bs-target","#comment" + postData.post_id);
             commentButton.setAttribute("data-bs-whatever","@mdo");
 
-
-
             const commentImage = document.createElement('img');
             commentImage.classList.add('action-img', 'like');
             commentImage.src = '../assets/Icon/comment-light.png'; // Adjust as per your icon location
 
             commentButton.appendChild(commentImage);
+
+            // // Add click event listener to the like button
+            // commentButton.addEventListener('click', function () {
+            //     const postID = postData.post_id;
+            //     console.log(postID);
+            //     loadComment(postID);
+            // });
+
             colDiv.appendChild(commentButton);
         } else if (colClass === 'download-col') {
             const downloadButton = document.createElement('button');
@@ -133,7 +139,57 @@ function createPostContainer(postData) {
     return postContainer;
 }
 
-function createCommentModel(postData) {
+function createCommentViewer(commentData) {
+    const commentViewers = [];
+    // Ensure commentData is an array, and if not, convert it to an array
+    const commentsArray = Array.isArray(commentData) ? commentData : [commentData];
+    commentsArray.forEach(data => {
+        // Create comment viewer
+        var commentViewer = document.createElement('div');
+        commentViewer.className = 'comment text-secondary';
+
+        // Create user info
+        var userInfo = document.createElement('div');
+        userInfo.className = 'user-info';
+
+        // Create user avatar
+        var userAvatar = document.createElement('img');
+        userAvatar.src = '../assets/Icon/avatar.png';
+        userAvatar.alt = 'User Avatar';
+
+        // Create username
+        var username = document.createElement('span');
+        username.className = 'username';
+        username.textContent = data.userName;
+
+        // Create comment text
+        var commentText = document.createElement('p');
+        commentText.className = 'comment-text';
+        commentText.textContent = data.comment_text;
+
+        // Create timestamp
+        var timestamp = document.createElement('div');
+        timestamp.className = 'timestamp';
+        timestamp.textContent = data.timestap;
+
+        // Append user info, comment text, and timestamp to the comment viewer
+        userInfo.appendChild(userAvatar);
+        userInfo.appendChild(username);
+        commentViewer.appendChild(userInfo);
+        commentViewer.appendChild(commentText);
+        commentViewer.appendChild(timestamp);
+
+        // Append commentViewer to modal body or wherever needed
+        // modalBody.appendChild(commentViewer);
+
+        commentViewers.push(commentViewer);
+    });
+
+    return commentViewers;
+}
+
+
+function createCommentModel(postData, commentData) {
     // Create modal container
     var modalContainer = document.createElement('div');
     modalContainer.className = 'modal fade';
@@ -158,7 +214,7 @@ function createCommentModel(postData) {
     var modalTitle = document.createElement('h3');
     modalTitle.className = 'modal-title text-secondary';
     modalTitle.id = 'commentModalLabel';
-    modalTitle.textContent = 'All Comments for Post ID ' + postData.post_id;
+    modalTitle.textContent = 'All Comments';
 
     // Create close button
     var closeButton = document.createElement('button');
@@ -180,42 +236,50 @@ function createCommentModel(postData) {
     modalBody.className = 'modal-body';
 
     // Create comment viewer
-    var commentViewer = document.createElement('div');
-    commentViewer.className = 'comment text-secondary';
+    const commentViewers = createCommentViewer(commentData);
 
-    // Create user info
-    var userInfo = document.createElement('div');
-    userInfo.className = 'user-info';
+    // Assuming modalBody is a valid DOM node where you want to append the comment viewers
+    commentViewers.forEach(commentViewer => {
+        modalBody.appendChild(commentViewer);
+    });
 
-    // Create user avatar
-    var userAvatar = document.createElement('img');
-    userAvatar.src = 'user-avatar.jpg';
-    userAvatar.alt = 'User Avatar';
+    // // Create comment viewer
+    // var commentViewer = document.createElement('div');
+    // commentViewer.className = 'comment text-secondary';
 
-    // Create username
-    var username = document.createElement('span');
-    username.className = 'username';
-    username.textContent = 'JohnDoe';
+    // // Create user info
+    // var userInfo = document.createElement('div');
+    // userInfo.className = 'user-info';
 
-    // Create comment text
-    var commentText = document.createElement('p');
-    commentText.className = 'comment-text';
-    commentText.textContent = 'This is a great comment! Lorem ipsum dolor sit amet, consectetur adipiscing elit.';
+    // // Create user avatar
+    // var userAvatar = document.createElement('img');
+    // userAvatar.src = '../assets/Icon/avatar.png';
+    // userAvatar.alt = 'User Avatar';
 
-    // Create timestamp
-    var timestamp = document.createElement('div');
-    timestamp.className = 'timestamp';
-    timestamp.textContent = 'Posted 2 hours ago';
+    // // Create username
+    // var username = document.createElement('span');
+    // username.className = 'username';
+    // username.textContent = commentData.userName;
 
-    // Append user info, comment text, and timestamp to the comment viewer
-    userInfo.appendChild(userAvatar);
-    userInfo.appendChild(username);
-    commentViewer.appendChild(userInfo);
-    commentViewer.appendChild(commentText);
-    commentViewer.appendChild(timestamp);
+    // // Create comment text
+    // var commentText = document.createElement('p');
+    // commentText.className = 'comment-text';
+    // commentText.textContent = commentData.comment_text;
 
-    // Append commentViewer to modal body
-    modalBody.appendChild(commentViewer);
+    // // Create timestamp
+    // var timestamp = document.createElement('div');
+    // timestamp.className = 'timestamp';
+    // timestamp.textContent = commentData.timestap;
+
+    // // Append user info, comment text, and timestamp to the comment viewer
+    // userInfo.appendChild(userAvatar);
+    // userInfo.appendChild(username);
+    // commentViewer.appendChild(userInfo);
+    // commentViewer.appendChild(commentText);
+    // commentViewer.appendChild(timestamp);
+
+    // // Append commentViewer to modal body
+    // modalBody.appendChild(commentViewer);
 
     // Create commentForm div
     var commentFormDiv = document.createElement('div');
@@ -366,7 +430,7 @@ async function sendComment(commentText, post_id) {
         const response = await fetch(url, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json', // Adjust the content type if needed
+                'Content-Type': 'application/json',
             },
         });
 
@@ -388,23 +452,90 @@ async function sendComment(commentText, post_id) {
 }
 
 
+async function loadComment(postID) {
+    try {
+        const url = `../functions/getComments.php?post_id=${encodeURIComponent(postID)}`;
+        // Make the GET request
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        // Check if the response status is OK
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        // Parse the JSON data from the response
+        const responseData = await response.json();
+
+        // Log or handle the received data
+        console.log(responseData);
+        return responseData;
+    } catch (error) {
+        // Handle errors, show a user-friendly message or perform other actions
+        console.error('Error in comment:', error);
+        alert('Something went wrong. Please try again.');
+    }
+}
+
+
+// getPost(0)
+//     .then(postData => {
+//         const postDetails = postData[0].data;
+//         console.log(postDetails);
+
+//         postDetails.forEach(postDetails => {
+//             // Create post container
+//             const postContainer = createPostContainer(postDetails);
+
+//             // get comments
+//             const commentsDetails = loadComment(postDetails.post_id);
+
+//             // Create comment modal
+//             const commentModal = createCommentModel(postDetails, commentsDetails);
+
+//             // Append postContainer and commentModal to mainContainer
+//             mainContainer.appendChild(postContainer);
+//             mainContainer.appendChild(commentModal);
+//         })
+//     })
+//     .catch(error => {
+//         console.error('Error in getPostData:', error);
+//     });
+
 getPost(0)
     .then(postData => {
-        const postDetails = postData[0].data;
-        console.log(postDetails);
+        const posts = postData[0].data;
+        console.log(posts);
 
-        postDetails.forEach(postDetails => {
-            // Create post container
-            const postContainer = createPostContainer(postDetails);
+        posts.forEach(postDetails => {
+            // get comments for post
+            loadComment(postDetails.post_id)
+                .then(comments => {
+                    const commentData = comments;
 
-            // Create comment modal
-            const commentModal = createCommentModel(postDetails);
+                    // Create post container
+                    const postContainer = createPostContainer(postDetails);
 
-            // Append postContainer and commentModal to mainContainer
-            mainContainer.appendChild(postContainer);
-            mainContainer.appendChild(commentModal);
-        })
+                    // Create comment modal
+                    const commentModal = createCommentModel(postDetails, commentData);
+
+                    // Append postContainer and commentModal to mainContainer
+                    mainContainer.appendChild(postContainer);
+                    mainContainer.appendChild(commentModal);
+                })
+                .catch(commentError => {
+                    console.error('Error in loadComment:', commentError);
+                });
+        });
     })
-    .catch(error => {
-        console.error('Error in getPostData:', error);
+    .catch(postError => {
+        console.error('Error in getPostData:', postError);
     });
+
+
+
+
