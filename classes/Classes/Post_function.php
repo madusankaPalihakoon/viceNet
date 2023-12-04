@@ -231,4 +231,24 @@ class PostFunction {
             $this->logFunctionError($e);
         }
     }
+
+    public function addComment($userId, $postId, $commentText) : array {
+        try {
+            $stmt = $this->pdo->prepare("INSERT INTO `post_comment`(`post_id`, `comment_user`, `comment_text`) VALUES (:post_id,:comment_user,:comment_text);");
+            $stmt->bindParam(':post_id' , $postId, \PDO::PARAM_INT);
+            $stmt->bindParam(':comment_user' , $userId, \PDO::PARAM_INT);
+            $stmt->bindParam(':comment_text' , $commentText, \PDO::PARAM_STR);
+            if ($stmt->execute()) {
+                return $responses = [
+                    'status' => 'success' 
+                ];
+            } else {
+                return $responses = [
+                    'status' => 'fail'
+                ];
+            }
+        } catch (\PDOException $e) {
+            $this->logFunctionError($e);
+        }
+    }
 }

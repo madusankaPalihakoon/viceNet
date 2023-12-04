@@ -117,6 +117,11 @@ $sessionId = $_SESSION['session_id'];
             </div>
             <!-- Loading div -->
 
+            <!-- Comment Modal -->        
+            
+            <!-- Comment Modal -->
+
+            
             <!--! post container -->
             
             <!--! post container -->
@@ -131,11 +136,12 @@ $sessionId = $_SESSION['session_id'];
     </div>
 
     <!--! like button action -->
-    <!-- <script src="../ajax/likeFunction.js"></script> -->
     <script src="../ajax/createPostAsync.js"></script>
-    <script src="../ajax/showPostAsync.js"></script>
+    <script src="../ajax/createCommentAsync.js"></script>
     <!-- Include Bootstrap JS -->
     <script src="../assets/node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
+    <script src="../assets/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/node_modules/bootstrap/dist/js/bootstrap.js"></script>
     <!-- Add your custom scripts here -->
 </body>
 </html>

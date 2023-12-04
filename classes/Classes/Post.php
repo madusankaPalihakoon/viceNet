@@ -25,4 +25,8 @@ class Post {
     public function setLike($current_user,$postId,$Status) {
         $this->postFunction->handleLike($current_user,$postId,$Status);
     }
+
+    public function setComment($userId, $postId, $commentText) : array {
+        return $this->postFunction->addComment($userId, $postId, $commentText);
+    }
 }

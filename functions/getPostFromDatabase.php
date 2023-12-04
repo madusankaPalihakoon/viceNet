@@ -6,10 +6,10 @@ use ViceNet\Classes\Post;
 $postNewFunction = new Post();
 
 // Extract batch and row parameters from the request
-// $batchIndex = $_GET['batch'];
+$batchIndex = $_GET['batch'];
 
 // Execute the processRowsInBatches method with specified batch and row indices
-$responseData = $postNewFunction->getPost(0);
+$responseData = $postNewFunction->getPost($batchIndex);
 
 // Respond with JSON-encoded data
 header('Content-Type: application/json');
