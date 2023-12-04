@@ -15,31 +15,33 @@ class ProfileFunction {
         $this->pdo = $pdo;
     }
     // Log the error message to user_signup_log.txt
-    private function logFunctionError($e): void
-    {
-        // Construct a meaningful error message
-        $error_message = "Error saving user data: " . $e->getMessage();
+    private function logFunctionError($e) {
+        // Define the error log file path using an absolute path
+        $error_log = __DIR__ . '/../../var/log/login.log';
     
-        // Define the error log file path (use an absolute path)
-        $error_log = __DIR__ . '/var/log/signup.log';
+        // Include additional information in the log entry (optional)
+        $log_entry = '[' . date('Y-m-d H:i:s') . '] ' . $e->getMessage() . ' in ' . $e->getFile() . ' on line ' . $e->getLine();
+        
+        // Append a new line to the log entry
+        $log_entry .= PHP_EOL;
     
-        // Log the error with a timestamp
-        $timestamp = date('Y-m-d H:i:s');
-        $log_entry = "[$timestamp] $error_message" . PHP_EOL;
-    
-        // Use error handling to prevent potential errors during logging
-        set_error_handler(function () {});
-        file_put_contents($error_log, $log_entry, FILE_APPEND);
-        restore_error_handler();
+        // Log the error using error_log, which handles logging to the specified file
+        error_log($log_entry, 3, $error_log);
     
         // Redirect to the error page
-        $error_page = 'error.php'; // Provide the relative path to the error page
+        $error_page = __DIR__.'/../../pages/error.php';
     
         // Ensure the error page exists before redirecting
         if (file_exists($error_page)) {
             header("Location: $error_page");
+            exit;
+        } else {
+            // Handle the case where the error page does not exist
+            // You can log this error separately or handle it in another way
+            error_log("Error page not found: $error_page");
         }
     }
+    
     public function updateUserProfile($userId, $profilePic, $coverPic, $home, $contact, $education, $employment, $relationship_status, $hobbies, $profile_setup_status): bool {
         $sqlAndParams = $this->generateUpdateUserProfileSql($userId, $profilePic, $coverPic, $home, $contact, $education, $employment, $relationship_status, $hobbies, $profile_setup_status);
     
