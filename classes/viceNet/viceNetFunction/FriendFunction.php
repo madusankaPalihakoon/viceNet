@@ -35,7 +35,7 @@ class FriendFunction {
         }
     }
 
-    public function getFriend(){
+    public function getFriend($sessionUser){
         $sql = "SELECT
                     u.Name,
                     p.ProfileImg,
@@ -44,8 +44,11 @@ class FriendFunction {
                 FROM
                     Users u
                 JOIN
-                    Profile p ON u.UserID = p.UserID;";
-        $stmt = $this->executeStatement($sql);
+                    Profile p ON u.UserID = p.UserID
+                WHERE
+                    u.UserID <> :UserID;";
+        $bindings = [':UserID' => $sessionUser];
+        $stmt = $this->executeStatement($sql,$bindings);
 
         if($stmt !== false) {
             $friendsData = $stmt->fetchAll(\PDO::FETCH_ASSOC);

@@ -79,7 +79,7 @@ class friendsFunction{
                 spanLink.textContent = friend.Name;
 
                 reqBtn.addEventListener('click', async () => {
-                    await this.sendRequestData(friend.ProfileID);
+                    await this.sendRequestData(friend.UserID);
                 });
 
                 friendListDiv.appendChild(profileImg);

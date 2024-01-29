@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && !is_null
 
     switch ($action) {
         case 'getFriend':
-            handleSendFriendData();
+            handleSendFriendData($sessionUser);
             break;
         
         default:
@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && !is_null
     ManageResponse::handleInvalidRequest();
 }
 
-function handleSendFriendData() {
+function handleSendFriendData($sessionUser) {
     $friend = new Friend();
-    ManageResponse::sendResponse($friend->getFriend());
+    ManageResponse::sendResponse($friend->getFriend($sessionUser));
 }

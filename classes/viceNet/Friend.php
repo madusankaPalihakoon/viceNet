@@ -13,8 +13,8 @@ class Friend {
         $this->friendFunction = new FriendFunction();
     }
 
-    public function getFriend(){
-        return $this->friendFunction->getFriend();
+    public function getFriend($sessionUser){
+        return $this->friendFunction->getFriend($sessionUser);
     }
 
     public function sendRequest( $profileID){
