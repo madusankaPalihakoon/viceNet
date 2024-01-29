@@ -28,6 +28,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && !is_null
 
 function handleSendFriendData() {
     $friend = new Friend();
-
     ManageResponse::sendResponse($friend->getFriend());
 }

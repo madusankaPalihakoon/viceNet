@@ -16,4 +16,8 @@ class Friend {
     public function getFriend(){
         return $this->friendFunction->getFriend();
     }
+
+    public function sendRequest( $profileID){
+        return $this->friendFunction->sendRequest( $profileID);
+    }
 }

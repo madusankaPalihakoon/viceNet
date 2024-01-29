@@ -9,5 +9,11 @@ const friends = new friendsFunction();
 document.addEventListener("DOMContentLoaded", async ()=> {
     loader.togglePageLoader(false);
 
-    friends.createFriendList();
+    const friendsContainer = document.querySelector('.friends-container');
+
+    const friendList = await friends.createFriendList();
+
+    friendList.forEach(friendRow=>{
+        friendsContainer.appendChild(friendRow);
+    })
 });

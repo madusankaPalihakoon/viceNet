@@ -8,9 +8,12 @@
     <link rel="stylesheet" href="../vendor/twbs/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../vendor/twbs/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="../assets/css/modified.css">
-    <!-- Include jQuery -->
-    <script src="../vendor/components/jquery/jquery.min.js"></script>
-    <script src="../vendor/components/jquery/jquery.js"></script>
+    <!-- Local Bootstrap Icons CSS -->
+    <link rel="stylesheet" href="../assets/node_modules/bootstrap-icons/font/bootstrap-icons.css">
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="../assets/Components/jquery-3.2.1.slim.min.js"></script>
+    <script src="../assets/Components/popper.min.js"></script>
+    <script src="../assets/Components/bootstrap.min.js"></script>
     <style>
         #loadingContainer{
             width: 100vw;
@@ -58,7 +61,7 @@
     </div>
     <!-- loading -->
 
-    <div class="container text-center" data-bs-theme="dark" id="mainContainer">
+    <div class="container text-center" data-bs-theme="light" id="mainContainer">
     <div class="row">
         <div class="col d-none d-md-block">
         <!-- This column will be hidden on small screens -->

@@ -49,7 +49,7 @@ class PostFunction {
         return (bool) $this->executeStatement($sql,$bindings);
     }
 
-    public function getPost($user) :array {
+    public function getPost() :array {
         $sql = "SELECT
                     p.PostID,
                     p.UserID,
@@ -67,14 +67,64 @@ class PostFunction {
                 LEFT JOIN
                     likecount lc ON p.PostID = lc.PostID
                 LEFT JOIN
-                    likes  l ON p.PostID = l.PostID AND l.UserID = :UserID
+                    likes  l ON p.PostID = l.PostID
                 LEFT JOIN
                     profile pr ON p.UserID = pr.UserID";
-        $bindings = [':UserID' => $user];
-
-        $stmt = $this->executeStatement($sql,$bindings);
-
+    
+        $stmt = $this->executeStatement($sql);
+    
         if ($stmt !== false) {
+            $postData = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    
+            foreach ($postData as &$post) {
+                $userPath = $post['UserID'];
+                
+                $key = 'postImgPath';
+                $path = "../uploads/$userPath/post";
+    
+                $key1 = 'profilePath';
+                $path1 = "../uploads/$userPath/profile";
+    
+                $post[$key] = $path;
+                $post[$key1] = $path1;
+            }
+            unset($post);
+    
+            return $postData;
+        } else {
+            return [];
+        }
+    }
+    
+
+    public function getUsersPost($user) {
+        $sql = "SELECT
+                    p.PostID,
+                    p.UserID,
+                    p.PostText,
+                    p.PostImg,
+                    p.PostTime,
+                    lc.TotalLikeCount,
+                    u.Name,
+                    pr.ProfileImg,
+                    l.LikeStatus
+                FROM
+                    Post p
+                JOIN
+                    Users u ON p.UserID = u.UserID
+                LEFT JOIN
+                    LikeCount lc ON p.PostID = lc.PostID
+                LEFT JOIN
+                    Likes l ON p.PostID = l.PostID AND l.UserID = :UserID
+                LEFT JOIN
+                    Profile pr ON p.UserID = pr.UserID
+                WHERE
+                    p.UserID = :UserID;";
+            $bindings = [':UserID' => $user];
+
+            $stmt = $this->executeStatement($sql,$bindings);
+
+            if ($stmt !== false) {
             $key = 'postImgPath';
             $path = "../uploads/$user/post";
 
@@ -90,8 +140,8 @@ class PostFunction {
             unset($Data);
 
             return $postData;
-        } else {
+            } else {
             return [];
-        }
+            }
     }
 }

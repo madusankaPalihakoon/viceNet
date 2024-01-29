@@ -29,12 +29,12 @@ class Post {
             .catch(error => console.error(error));
     }
 
-    async getPost() {
+    async getPost(action) {
         const getPost = new DataService('../script/getHomeData');
         const postForm = new FormData();
     
         const actionData = {
-            action: 'getPost',
+            action: action,
         };
     
         postForm.append(Object.keys(actionData)[0], actionData[Object.keys(actionData)[0]]);
@@ -87,18 +87,18 @@ class Post {
         return likeButton;
     }
 
-    async createPostContainers() {
+    async createPostContainers(action) {
         let postData;
 
         try {
-            postData = await this.getPost();
+            postData = await this.getPost(action);
         } catch (error) {
             postData = [];
             console.log(error);
         }
 
         const posts = [];
-        let comments = [];
+        let comments;
         // const postContainer = document.getElementById('postContainer');
 
         if (postData.length > 0) {
@@ -202,7 +202,7 @@ class Post {
                 const commentModel = comment.createCommentModal(commentData);
 
                 posts.push(PostContainer);
-                comments.push(commentModel);
+                comments = commentModel;
             });
         } else {
             var divElement = document.createElement('div');

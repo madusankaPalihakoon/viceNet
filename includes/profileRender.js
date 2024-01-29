@@ -11,12 +11,27 @@ document.addEventListener("DOMContentLoaded", async ()=> {
 
     try {
         const profileContainer = document.getElementById('profile_container');
+        const pageBody = document.body;
     
         const profileCon = await profile.getPostContainer();
     
         profileCon.forEach(function(container) {
             profileContainer.append(container);
         });
+
+        const usersPostData = await profile.getUsersPost();
+
+        const posts = usersPostData[0];
+        const comments = usersPostData[1];
+
+        posts.forEach(post =>{
+            profileContainer.appendChild(post);
+        });
+
+        comments.forEach(comment =>{
+            pageBody.appendChild(comment);
+        });
+
     } catch (error) {
         loader.togglePageLoader(true);
         console.error(error);

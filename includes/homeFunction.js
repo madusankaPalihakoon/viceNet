@@ -189,7 +189,7 @@ class homeFunction {
     }
 
     async getPostContainers() {
-        return post.createPostContainers();
+        return post.createPostContainers('getPost');
     }
 }
 export default homeFunction;

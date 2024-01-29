@@ -21,4 +21,8 @@ class Post{
     public function getPost($user) {
         return $this->postFunction->getPost($user);
     }
+
+    public function getUsersPost($user) {
+        return $this->postFunction->getUsersPost($user);
+    }
 }

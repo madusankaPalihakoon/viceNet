@@ -56,18 +56,16 @@
                     <div class="container mt-4">
                         <div class="search-friend">
                             <form action="" method="post" enctype="multipart/form-data">
-                                <label for="searchFriends">Search Friend</label>
-                                <input type="text" name="searchFriends" id="searchFriends">
-                                <button type="submit">Search</button>
+                                <div class="form-group row">
+                                    <label for="searchName" class="col-sm-2 col-form-label">Enter Name</label>
+                                    <div class="col-sm-8">
+                                    <input type="text" readonly class="form-control" id="searchName">
+                                    </div>
+                                    <button class="btn btn-primary col">Search</button>
+                                </div>
                             </form>
                             <hr>
                             <div class="friends-container">
-                                <div class="col" >
-                                    <div class="friendList">
-                                        <img class="profile-pic-sm" src="https://via.placeholder.com/50" alt="" srcset="">
-                                        <span><a href="">full name</a></span>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>

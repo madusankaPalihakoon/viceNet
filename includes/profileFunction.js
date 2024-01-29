@@ -1,4 +1,5 @@
 import DataService from "../assets/js_modules/DataService.js";
+import Post from "./Post.js";
 
 class profileFunction{
     constructor(){
@@ -187,6 +188,11 @@ class profileFunction{
         profileDiv.push(ProfileInfoContainer);
 
         return profileDiv;
+    }
+
+    async getUsersPost() {
+        const post = new Post();
+        return await post.createPostContainers('userPost');
     }
 }
 export default profileFunction;

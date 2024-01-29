@@ -27,6 +27,10 @@ document.addEventListener("DOMContentLoaded", async ()=> {
 
     const postData = await home.getPostContainers();
 
+    if (typeof postData === "object") {
+        postContainer.append(postData);
+    }
+
     const posts = postData[0];
     const comments = postData[1];
 
@@ -34,11 +38,13 @@ document.addEventListener("DOMContentLoaded", async ()=> {
         postContainer.appendChild(post);
     });
 
-    for (let index = 0; index < comments.length; index++) {
-        comments[index].forEach(comment => {
-            pageBody.appendChild(comment);
-        });
-    }    
-    
-    // console.log(comments.length);
+    comments.forEach(comment=>{
+        pageBody.appendChild(comment);
+    });
+
+    // for (let index = 0; index < comments.length; index++) {
+    //     comments[index].forEach(comment => {
+    //         pageBody.appendChild(comment);
+    //     });
+    // }
 });

@@ -24,6 +24,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && !is_null
             sendPostData($post, $sessionUser);
             break;
 
+        case 'userPost':
+            sendUserPostData($post, $sessionUser);
+            break;
+
         default:
             ManageResponse::handleInvalidAction();
             break;
@@ -47,4 +51,9 @@ function sendPostData(Post $post, $sessionUser) {
 
 function sendCommentData() {
     
+}
+
+function sendUserPostData($post, $sessionUser) {
+    $postData = $post->getUsersPost($sessionUser);
+    ManageResponse::sendResponse($postData);
 }
