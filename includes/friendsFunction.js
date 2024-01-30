@@ -87,10 +87,13 @@ class friendsFunction{
         const requestForm = new FormData();
         const sendRequest = new DataService('../controller/friendController');
 
+        const btnAction = document.getElementById('reqBtn').textContent;
+        console.log(btnAction);
+
         this.toggleReqBtn();
 
         const actionData = {
-            action: 'sendRequest',
+            action: btnAction,
             id: id,
         };
     

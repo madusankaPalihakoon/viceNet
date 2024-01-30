@@ -20,4 +20,8 @@ class Friend {
     public function sendRequest( $requestUser, $sessionUser){
         return $this->friendFunction->sendRequest( $requestUser, $sessionUser);
     }
+
+    public function responseRequest($sender, $receiver) {
+        return $this->friendFunction->responseRequest($sender, $receiver);
+    }
 }

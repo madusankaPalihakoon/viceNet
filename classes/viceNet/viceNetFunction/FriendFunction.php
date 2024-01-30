@@ -109,10 +109,23 @@ class FriendFunction {
         }
 
         return $currentRequestStatus;
+    }
 
-        // $sql = "INSERT INTO `friends`(`UserID`, `FriendID`, `requestStatus`) VALUES (:UserID, :FriendID, :requestStatus)";
-        // $bindings = [ ':UserID' => $sessionUser, ':FriendID' => $requestUser, ':requestStatus' => $requestStatus,];
+    private function deleteCurrentRequest($sender, $receiver) {
+        $sql = "DELETE FROM `requests` WHERE SenderID = :SenderID AND ReceiverID = :ReceiverID;";
+        $bindings = [ ':SenderID' => $sender, ':ReceiverID' => $receiver];
 
-        // return (bool) $this->executeStatement($sql, $bindings);
+        return (bool) $this->executeStatement($sql,$bindings);
+    }
+
+    private function createFriendship($user, $friend) {
+        $sql = "INSERT INTO `friends`(`UserID`, `FriendID`) VALUES (:UserID, :FriendID)";
+        $bindings = [':UserID' => $user, ':FriendID'=> $friend];
+
+        return (bool) $this->executeStatement($sql,$bindings);
+    }
+
+    public function responseRequest($sender, $receiver) {
+        return (bool) ($this->deleteCurrentRequest($sender, $receiver) && $this->createFriendship($sender, $receiver));
     }
 }

@@ -13,14 +13,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && isset($_
     $action = $_POST['action'];
     $requestUser = $_POST['id'];
     $request = new Friend();
-
     switch ($action) {
-        case 'sendRequest':
+        case 'Send Request':
             handleSendRequest($request, $requestUser, $sessionUser);
+            break;
+
+        case 'Response':
+            // ManageResponse::sendResponse(['action' => $action]);
+            handleResponseRequest($request, $requestUser, $sessionUser);
+            break;
+
+        case 'Pending':
+            # code...
             break;
         
         default:
-            ManageResponse::handleInvalidAction();
+        ManageResponse::handleInvalidAction();
             break;
     }
 }else{
@@ -29,14 +37,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && isset($_
 
 function handleSendRequest(Friend $request, $requestUser, $sessionUser){
     if(ManageUuid::validateUUID($requestUser) && ManageUuid::validateUUID($sessionUser)){
-        // if(!$request->sendRequest( $requestUser, $sessionUser)){
-        //     ManageResponse::sendResponse(['status' => false]);
-        // }
-
-        // ManageResponse::sendResponse(['status' => true]);
         $result = $request->sendRequest( $requestUser, $sessionUser);
         ManageResponse::sendResponse(['status' => $result]);
     } else {
         ManageResponse::sendResponse(['status' => false]);
     }   
+}
+
+function handleResponseRequest(Friend $request, $sender, $receiver) {
+    if(ManageUuid::validateUUID($sender) && ManageUuid::validateUUID($receiver)) {
+        $result = $request->responseRequest($sender, $receiver);
+        ManageResponse::sendResponse(['status' => $result]);
+    }
 }

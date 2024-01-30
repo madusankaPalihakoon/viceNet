@@ -104,8 +104,6 @@ CREATE TABLE Friends (
     FriendshipID INT AUTO_INCREMENT PRIMARY KEY,
     UserID VARCHAR(36),
     FriendID VARCHAR(36),
-    requestStatus VARCHAR(20) DEFAULT 'pending',
-    RequestDirection VARCHAR(10) DEFAULT 'sent',
     FOREIGN KEY (UserID) REFERENCES Profile(UserID),
     FOREIGN KEY (FriendID) REFERENCES Profile(UserID),
     UNIQUE KEY unique_friendship (UserID, FriendID)
