@@ -17,7 +17,7 @@ class Friend {
         return $this->friendFunction->getFriend($sessionUser);
     }
 
-    public function sendRequest( $profileID){
-        return $this->friendFunction->sendRequest( $profileID);
+    public function sendRequest( $requestUser, $sessionUser){
+        return $this->friendFunction->sendRequest( $requestUser, $sessionUser);
     }
 }

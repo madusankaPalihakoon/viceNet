@@ -22,10 +22,73 @@ class friendsFunction{
         }
     }
 
+    toggleReqBtn() {
+        const reqBtn = document.getElementById('reqBtn');
+    
+        if (reqBtn.textContent === 'Send Request') {
+            reqBtn.className = "btn btn-success";
+            reqBtn.textContent = 'Pending';
+        } else {
+            reqBtn.className = "btn btn-primary";
+            reqBtn.textContent = 'Send Request';
+        }
+    }
+
+    createRequestBtn() {
+        const reqBtn = document.createElement('button');
+        reqBtn.className = 'btn btn-primary';
+        reqBtn.id = 'reqBtn';
+        reqBtn.textContent = 'Send Request';
+        return reqBtn;
+    }
+
+    createBtn(className,text){
+        const reqBtn = document.createElement('button');
+        reqBtn.className = 'btn btn-'+className;
+        reqBtn.id = 'reqBtn';
+        reqBtn.textContent = text;
+        return reqBtn;
+    }
+
+    handleCreateBtn(status) {
+        switch (status) {
+            case 'pending':
+                return this.createBtn('success','Pending');
+                break;
+            
+            default:
+                return this.createBtn('primary','Send Request');
+                break;
+        }
+    }
+
+    handleSendBtn(status) {
+        return this.handleCreateBtn(status);
+    }
+
+    handleReceivedBtn(status) {
+        return this.createBtn('secondary','Response');
+    }
+
+
+    createReqBtn(status,direction){
+        if(direction === 'sent') {
+            return this.handleSendBtn(status);
+        }
+
+        if(direction === 'received') {
+            return this.handleReceivedBtn(status);
+        }
+
+        return this.createRequestBtn();
+    }
+
     async sendRequestData(id) {
         const requestForm = new FormData();
         const sendRequest = new DataService('../controller/friendController');
-    
+
+        this.toggleReqBtn();
+
         const actionData = {
             action: 'sendRequest',
             id: id,
@@ -47,6 +110,7 @@ class friendsFunction{
 
         try {
             friendData = await this.getFriendData();
+            console.log(friendData);
         } catch (error) {
             friendData = [];
             console.log(error);
@@ -70,10 +134,8 @@ class friendsFunction{
                 const spanLink = document.createElement('a');
                 spanLink.href = 'profile' + '?' + friend.ProfileID;
 
-                const reqBtn = document.createElement('button');
-                reqBtn.className = 'btn btn-primary';
-                reqBtn.id = 'reqBtn';
-                reqBtn.textContent = 'Send Request';
+
+                const reqBtn = this.createReqBtn(friend.Status,friend.Direction);
 
                 // Set some text content for the link
                 spanLink.textContent = friend.Name;

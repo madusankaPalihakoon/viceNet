@@ -89,11 +89,23 @@ END;
 //
 DELIMITER ;
 
+CREATE TABLE Requests (
+    RequestID INT PRIMARY KEY AUTO_INCREMENT,
+    SenderID VARCHAR(36) NOT NULL,
+    ReceiverID VARCHAR(36) NOT NULL,
+    Status ENUM('pending', 'accepted', 'rejected') DEFAULT 'pending',
+    RequestDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (SenderID) REFERENCES Users(UserID),
+    FOREIGN KEY (ReceiverID) REFERENCES Users(UserID),
+    UNIQUE KEY unique_requests (SenderID, ReceiverID)
+);
+
 CREATE TABLE Friends (
     FriendshipID INT AUTO_INCREMENT PRIMARY KEY,
     UserID VARCHAR(36),
     FriendID VARCHAR(36),
-    requestStatus TINYINT DEFAULT 0,
+    requestStatus VARCHAR(20) DEFAULT 'pending',
+    RequestDirection VARCHAR(10) DEFAULT 'sent',
     FOREIGN KEY (UserID) REFERENCES Profile(UserID),
     FOREIGN KEY (FriendID) REFERENCES Profile(UserID),
     UNIQUE KEY unique_friendship (UserID, FriendID)

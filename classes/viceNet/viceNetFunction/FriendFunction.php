@@ -37,16 +37,25 @@ class FriendFunction {
 
     public function getFriend($sessionUser){
         $sql = "SELECT
-                    u.Name,
-                    p.ProfileImg,
-                    p.ProfileID,
-                    u.UserID
-                FROM
-                    Users u
-                JOIN
-                    Profile p ON u.UserID = p.UserID
-                WHERE
-                    u.UserID <> :UserID;";
+        u.Name,
+        p.ProfileImg,
+        p.ProfileID,
+        p.UserID,
+        r.Status,
+        CASE
+            WHEN r.SenderID = :UserID THEN 'sent'
+            WHEN r.ReceiverID = :UserID THEN 'received'
+            ELSE NULL
+        END AS Direction
+    FROM
+        Users u
+    LEFT JOIN
+        Profile p ON u.UserID = p.UserID
+    LEFT JOIN
+        Requests r ON u.UserID = r.SenderID OR u.UserID = r.ReceiverID
+    WHERE
+        u.UserID <> :UserID;
+    ";
         $bindings = [':UserID' => $sessionUser];
         $stmt = $this->executeStatement($sql,$bindings);
 
@@ -69,7 +78,41 @@ class FriendFunction {
         }
     }
 
-    public function sendRequest( $profileID){
-        $sql = "INSERT INTO `friends`(`UserID`, `FriendID`, `requestStatus`) VALUES (:UserID,)";
+    private function checkCurrentRequestStatus($requestUser, $sessionUser) {
+        $sql = "SELECT Status FROM `requests` WHERE SenderID = :UserID AND ReceiverID = :FriendID;";
+        $bindings = [':UserID' => $sessionUser, ':FriendID' => $requestUser];
+    
+        $stmt = $this->executeStatement($sql, $bindings);
+    
+        if ($stmt !== false && $stmt->rowCount() > 0) {
+            return $stmt->fetchColumn(\PDO::FETCH_DEFAULT);
+        } else {
+            return null;
+        }
+    }    
+
+    public function sendRequest( $requestUser, $sessionUser){
+        $currentRequestStatus = $this->checkCurrentRequestStatus($requestUser, $sessionUser);
+
+        if(is_null($currentRequestStatus)) {
+            $sql = "INSERT INTO `requests`(`SenderID`, `ReceiverID`) VALUES (:SenderID, :ReceiverID)";
+            $bindings = [ ':SenderID' => $sessionUser, ':ReceiverID' => $requestUser];
+
+            return (bool) $this->executeStatement($sql,$bindings);
+        }
+
+        if($currentRequestStatus === 'pending') {
+            $sql = "DELETE FROM `requests` WHERE SenderID = :SenderID AND ReceiverID = :ReceiverID;";
+            $bindings = [ ':SenderID' => $sessionUser, ':ReceiverID' => $requestUser];
+
+            return (bool) $this->executeStatement($sql,$bindings);
+        }
+
+        return $currentRequestStatus;
+
+        // $sql = "INSERT INTO `friends`(`UserID`, `FriendID`, `requestStatus`) VALUES (:UserID, :FriendID, :requestStatus)";
+        // $bindings = [ ':UserID' => $sessionUser, ':FriendID' => $requestUser, ':requestStatus' => $requestStatus,];
+
+        // return (bool) $this->executeStatement($sql, $bindings);
     }
 }
