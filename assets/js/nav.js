@@ -1,9 +1,9 @@
 const homeLink = document.getElementById('homeLink');
 const profileLink = document.getElementById('profileLink');
-const galleryLink = document.getElementById('galleryLink');
+const friendsLink = document.getElementById('friendsLink');
 const settingLink = document.getElementById('settingLink');
 
 homeLink.setAttribute('href','home');
 profileLink.setAttribute('href','profile');
-galleryLink.setAttribute('href','gallery');
+friendsLink.setAttribute('href','friends');
 settingLink.setAttribute('href','setting');

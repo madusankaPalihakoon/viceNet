@@ -27,10 +27,6 @@ document.addEventListener("DOMContentLoaded", async ()=> {
 
     const postData = await home.getPostContainers();
 
-    if (typeof postData === "object") {
-        postContainer.append(postData);
-    }
-
     const posts = postData[0];
     const comments = postData[1];
 

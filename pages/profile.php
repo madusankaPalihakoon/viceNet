@@ -41,7 +41,7 @@
         <a class="d-grid d-md-none" href=""><i class="bi bi-house"></i></a>
         <a id="profileLink" class="nav-link d-none d-md-grid" href="#">Profile</a>
         <a class="d-grid d-md-none" href=""><i class="bi bi-people"></i></a>
-        <a id="galleryLink" class="nav-link d-none d-md-grid" href="#">Gallery</a>
+        <a id="friendsLink" class="nav-link d-none d-md-grid" href="#">Friends</a>
         <a class="d-grid d-md-none" href=""><i class="bi bi-person"></i></a>
         <a id="settingLink" class="nav-link d-none d-md-grid" href="#">Setting</a>
         <a class="d-grid d-md-none" href=""><i class="bi bi-gear"></i></a>
