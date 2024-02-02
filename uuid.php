@@ -15,7 +15,6 @@
     <script src="assets/Components/bootstrap.min.js"></script>
 </head>
 <body>
-    <button class="btn btn-primary" id="reqBtn">Send Request</button>
-    <script type="module"  src="includes/reqBtnFunction.js"></script>
+    <script type="module"  src="includes/requestBtnFunction.js"></script>
 </body>
 </html>
